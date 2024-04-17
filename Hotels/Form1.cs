@@ -73,6 +73,36 @@ namespace Hotels
 
         }
 
+        private void textBoxFourAnswer_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxSecondAnswer_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxFIO_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxSevenAnswer_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private static string emptyMessage = "Данные не введены";
         static int[] mArray = { 7, 4, 6 };
         static List<Client> clients = new List<Client>();
@@ -86,9 +116,17 @@ namespace Hotels
         private void Form1_Load(object sender, EventArgs e)
         {
             File_Load();
+            Set_Data_Grid();  
         }
 
-        private static void File_Load()
+        private void Set_Data_Grid()
+        {
+            dataGridViewClients.DataSource = clients;
+            dataGridViewWorkers.DataSource = workers;
+            dataGridViewNumbers.DataSource = hotels;
+        }
+
+        private void File_Load()
         {
             for (int i = 0; i < paths.Length; i++)
             {
@@ -207,7 +245,7 @@ namespace Hotels
             {
                 textBoxSecondAnswer.Text = emptyMessage;
             }
-            
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -242,7 +280,7 @@ namespace Hotels
         {
             textBoxFourAnswer.Text = "";
             var emptyNumbers = hotels.Where(hotelInfo => hotelInfo.Clients.Count == 0).Count();
-            var emptyPlaces = hotels.Where(hotelInfo => hotelInfo.Clients.Count != hotelInfo.typeNumber).Count();
+            var emptyPlaces = hotels.Where(hotelInfo => hotelInfo.Clients.Count < hotelInfo.typeNumber).Count();
 
             textBoxFourAnswer.Text += $"Количество пустых номеров {emptyNumbers}" + Environment.NewLine;
             textBoxFourAnswer.Text += $"Количество пустых мест в отеле {emptyPlaces}";
@@ -270,7 +308,7 @@ namespace Hotels
             textBoxSixAnswer.Text = "";
             int totalSum = 0;
             var summary = hotels.Where(hotelInfo => hotelInfo.Clients.Count != 0)
-                .Select(hotelInfo => hotelInfo.Clients.Sum(client => client.NightCount) * hotelInfo.Cost);
+                .Select(hotelInfo => hotelInfo.Clients.Sum(client => client.NightCount) * (hotelInfo.Cost-(1500*(3-hotelInfo.Clients.Count))));
             foreach (int sum in summary)
             {
                 totalSum += sum;
@@ -278,7 +316,7 @@ namespace Hotels
             textBoxSixAnswer.Text = $"Общая выплаченная сумма {totalSum} рублей";
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void button7_Click_1(object sender, EventArgs e)
         {
             textBoxSevenAnswer.Text = "";
             if (!string.IsNullOrEmpty(textBoxFIO.Text))
@@ -303,7 +341,7 @@ namespace Hotels
             }
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void button8_Click_1(object sender, EventArgs e)
         {
             textBoxSevenAnswer.Text = "";
             if (!string.IsNullOrEmpty(textBoxFIO.Text))
@@ -325,11 +363,6 @@ namespace Hotels
             {
                 textBoxSevenAnswer.Text += $"{worker.FIO}" + Environment.NewLine;
             }
-        }
-
-        private void textBoxFourAnswer_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -35,6 +35,7 @@ namespace Hotels
             return hashFIO ^ hashPassportNumber^hashCity ^hashNumber ^hashArrivalTime^hashNightCount;
         }
 
+
         public Client() { }
 
         public Client(int key,string fio,string passportNumber,string city,int number,string arrivalDate,int nightCount) {
